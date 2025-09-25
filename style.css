@@ -1,0 +1,213 @@
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4, #a1c4fd, #c2e9fb);
+  background-size: 400% 400%;
+  animation: bgmove 12s ease infinite;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  overflow: hidden;
+}
+@keyframes bgmove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Deck and card */
+.deck {
+  position: relative;
+  width: 420px;
+  height: 340px;
+  overflow: visible;
+}
+
+/* Animated diagonal stripes overlay */
+.stripes {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(255,255,255,0.06) 0 10px,
+    rgba(255,255,255,0.02) 10px 20px
+  );
+  pointer-events: none;
+  z-index: 0;
+  animation: stripeMove 8s linear infinite;
+  mix-blend-mode: overlay;
+}
+@keyframes stripeMove {
+  0% { background-position: 0 0; }
+  100% { background-position: 240px 0; }
+}
+
+/* Floating bubbles container */
+.bubbles {
+  position:absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  pointer-events:none;
+  z-index:0;
+  overflow:visible;
+}
+.bubble {
+  position:absolute;
+  bottom:-40px;
+  border-radius:50%;
+  opacity:0.9;
+  pointer-events:none;
+  filter: blur(0.3px);
+  mix-blend-mode: screen;
+}
+@keyframes floatUp {
+  0% { transform: translateY(0) translateX(0); opacity:0; }
+  10% { opacity:0.9; }
+  100% { transform: translateY(-140%) translateX(40px); opacity:0; }
+}
+
+.card {
+  width: 420px;
+  height: 400px;
+  perspective: 1000px;
+  position: absolute;
+  top: 20px;
+  left: 0;
+  z-index: 2;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+.flip { transform: rotateY(180deg); }
+
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  backface-visibility: hidden;
+  box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 18px;
+}
+.card-front { background: #fff; color: #333; }
+.card-back { background: #4cafef; color: white; transform: rotateY(180deg); }
+
+h2 { margin: 0 0 10px; }
+.definition { font-size: 17px; margin: 10px 0; text-align: center; min-height:48px; }
+
+/* Single dynamic audio button */
+.audio-btn {
+  background: #4cafef;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 15px;
+  cursor: pointer;
+  margin: 6px;
+}
+.audio-btn:hover { background: #2196f3; }
+
+input[type="text"] {
+  padding: 10px;
+  width: 80%;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  border: 2px solid #ccc;
+  font-size: 16px;
+}
+button {
+  padding: 10px 16px;
+  margin: 4px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background: #ff6f61;
+  color: white;
+  font-weight: bold;
+  transition: transform 0.2s;
+}
+button:hover { transform: scale(1.05); }
+
+.choice-btn {
+  display: block;
+  width: 90%;
+  background: #ffe5d9;
+  color: #ff6f61;
+  border: 2px solid #ffc2b3;
+  margin: 6px auto;
+}
+.choice-btn:hover { background: #ffd6cc; }
+
+.progress-container {
+  position: absolute;
+  top: -20px;
+  width: 80%;
+  height: 10px;
+  background: rgba(255,255,255,0.5);
+  border-radius: 5px;
+  overflow: hidden;
+  left: 10%;
+  z-index: 3;
+}
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: #ff6f61;
+  transition: width 0.4s;
+}
+
+.confetti {
+  position: fixed;
+  top: -10px;
+  width: 10px;
+  height: 10px;
+  background: red;
+  animation: fall 3s linear forwards;
+}
+@keyframes fall {
+  to { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+.flash-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+/* End screen */
+#endScreen {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  z-index: 2000;
+}
+#missedList { margin-top: 12px; font-size: 14px; color: #444; }
+#percentDisplay { font-size: 28px; font-weight: bold; margin-top: 10px; }
+#streakDisplay { font-size: 16px; margin-top: 8px; }
