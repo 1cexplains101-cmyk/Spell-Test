@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Fun Flashcard Spelling Game</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="deck" id="deck">
+  <div class="stripes" aria-hidden="true"></div>
+  <div class="bubbles" id="bubbleContainer" aria-hidden="true"></div>
+
+  <div class="progress-container"><div class="progress-bar" id="progress"></div></div>
+
+  <div class="card" id="gameCard">
+    <div class="card-inner" id="cardInner">
+      <!-- Front -->
+      <div class="card-front">
+        <h2>2C Spelling Quiz Practice</h2>
+        <p class="definition" id="definition">Loading...</p>
+        <div>
+          <button id="audioBtn" class="audio-btn">🔊 Listen</button>
+        </div>
+        <div id="spellingMode">
+          <input type="text" id="answer" placeholder="Type the word..." autocomplete="off" />
+          <button onclick="checkSpelling()">Submit</button>
+        </div>
+        <div id="choiceMode" style="display:none;">
+          <div id="choices"></div>
+        </div>
+        <div id="streakDisplay">🔥 Streak: 0</div>
+      </div>
+
+      <!-- Back -->
+      <div class="card-back">
+        <h2 id="feedbackTitle">Result</h2>
+        <p id="feedback"></p>
+        <button onclick="nextQuestion()">Next Card</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Screen -->
+  <div id="endScreen">
+    <h2>🎉 Quiz Complete!</h2>
+    <p id="scoreSummary"></p>
+    <div id="percentDisplay">0%</div>
+    <div id="missedList"></div>
+    <button onclick="restartGame()">Restart</button>
+  </div>
+</div>
+
+<!-- Flash overlay element -->
+<div id="flashOverlay" class="flash-overlay"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
